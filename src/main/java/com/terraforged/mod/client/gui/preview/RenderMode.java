@@ -32,6 +32,18 @@ import com.terraforged.world.heightmap.Levels;
 import java.awt.*;
 
 public enum RenderMode {
+    ELEVATION{
+      @Override
+      public int getColor(Cell cell, Levels levels, float scale, float bias){
+         return rgba(0.2f, 0.4f, (cell.value - levels.water) / (1F - levels.water));
+      }
+    },
+    TERRAIN_REGION_ID{
+      @Override
+      public int getColor(Cell cell, Levels levels, float scale, float bias){
+         return rgba(cell.terrainRegionIdentity, 0.4f, 1F);
+      }
+    },
     BIOME_TYPE {
         @Override
         public boolean handlesWater() {
@@ -126,7 +138,7 @@ public enum RenderMode {
     ;
 
     public int getColor(Cell cell, Levels levels) {
-        if (!handlesWater() && cell.value < levels.water) {
+        if (!handlesWater() && (cell.value < levels.water || cell.value < cell.waterLevel)) {
             return getWaterColor();
         }
         float bands = 10F;

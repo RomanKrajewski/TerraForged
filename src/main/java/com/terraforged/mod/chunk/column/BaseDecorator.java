@@ -28,6 +28,7 @@ package com.terraforged.mod.chunk.column;
 import com.terraforged.api.chunk.column.ColumnDecorator;
 import com.terraforged.api.chunk.column.DecoratorContext;
 import com.terraforged.api.material.state.States;
+import com.terraforged.n2d.util.NoiseUtil;
 import net.minecraft.world.chunk.IChunk;
 
 public class BaseDecorator implements ColumnDecorator {
@@ -43,6 +44,9 @@ public class BaseDecorator implements ColumnDecorator {
             y = lavaEnd;
         } else if (y < context.levels.waterLevel) {
             fillDown(context, chunk, x, z, context.levels.waterY, y, States.WATER.get());
+        }
+        if (y <  context.levels.scale(context.cell.waterLevel)){
+            fillDown(context, chunk, x, z, context.levels.scale(context.cell.waterLevel) -1 , y, States.WATER.get());
         }
         fillDown(context, chunk, x, z, y, 0, States.STONE.get());
     }

@@ -42,6 +42,7 @@ public class States {
     public static final StateSupplier SNOW_BLOCK = DefaultState.of("minecraft:snow_block").cache();
     public static final StateSupplier STONE = DefaultState.of("minecraft:stone").cache();
     public static final StateSupplier WATER = DefaultState.of("minecraft:water").cache();
+    public static final StateSupplier GLASS = DefaultState.of("minecraft:glass").cache();
 
     public static void invalidate() {
         CachedState.clearAll();

@@ -46,7 +46,7 @@ public class BaseDecorator implements ColumnDecorator {
             fillDown(context, chunk, x, z, context.levels.waterY, y, States.WATER.get());
         }
         if (y <  context.levels.scale(context.cell.waterLevel)){
-            fillDown(context, chunk, x, z, context.levels.scale(context.cell.waterLevel) -1 , y, States.WATER.get());
+            fillDownFlowing(context, chunk, x, z, context.levels.scale(context.cell.waterLevel) -1 , y, States.WATER.get());
         }
         fillDown(context, chunk, x, z, y, 0, States.STONE.get());
     }

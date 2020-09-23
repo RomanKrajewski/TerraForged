@@ -52,12 +52,6 @@ public interface ColumnDecorator {
             chunk.setBlockState(context.pos.setPos(x, dy, z), state, true);
         }
     }
-    default void fillDownFlowing(DecoratorContext context, IChunk chunk, int x, int z, int from, int to, BlockState state) {
-        for (int dy = from; dy > to; dy--) {
-            chunk.setBlockState(context.pos.setPos(x, dy, z), state, true);
-            chunk.getFluidsToBeTicked().scheduleTick(context.pos.setPos(x, dy, z), state.getFluidState().getFluid(), 0);
-        }
-    }
 
     default void fillDownSolid(DecoratorContext context, IChunk chunk, int x, int z, int from, int to, BlockState state) {
         for (int dy = from; dy > to; dy--) { ;

@@ -29,6 +29,7 @@ import com.terraforged.api.chunk.column.ColumnDecorator;
 import com.terraforged.api.chunk.column.DecoratorContext;
 import com.terraforged.api.material.state.States;
 import com.terraforged.n2d.util.NoiseUtil;
+import net.minecraft.block.BlockState;
 import net.minecraft.world.chunk.IChunk;
 
 public class BaseDecorator implements ColumnDecorator {
@@ -49,5 +50,12 @@ public class BaseDecorator implements ColumnDecorator {
             fillDownFlowing(context, chunk, x, z, context.levels.scale(context.cell.waterLevel) -1 , y, States.WATER.get());
         }
         fillDown(context, chunk, x, z, y, 0, States.STONE.get());
+    }
+
+    void fillDownFlowing(DecoratorContext context, IChunk chunk, int x, int z, int from, int to, BlockState state) {
+        for (int dy = from; dy > to; dy--) {
+            chunk.setBlockState(context.pos.setPos(x, dy, z), state, true);
+            chunk.getFluidsToBeTicked().scheduleTick(context.pos.setPos(x, dy, z), state.getFluidState().getFluid(), 0);
+        }
     }
 }
